@@ -51,46 +51,31 @@ public class PlayfairCipher {
 	
 	public static char[][] formKeyMatrix(String key)
 	{
+		key=key.replaceAll("J","I");
+		char[][] keymatrix=new char[5][5];
+		int a=0;
 		Set<Character> unique= new LinkedHashSet<Character>();
 		String uniquestr="";
 		for(int p=0;p<key.length();p++)
 		{
 			unique.add(key.charAt(p));
 		}
+		for(char i=65;i<91;i++)
+		{
+			if(i!=74)
+			unique.add(i);
+		}
 		Iterator<Character> iter=unique.iterator();
 		while(iter.hasNext())
 		{
 			uniquestr+=iter.next();
 		}
-		char[][] keymatrix=new char[5][5];
-		char start='A';
-		int a=0;
 		for(int i=0;i<5;i++)
 		{
 			for(int j=0;j<5;j++)
 			{
-				if(a>=uniquestr.length())
-				{
-					if(uniquestr.indexOf(start)==-1)
-					{
-						if(start=='J')
-						{
-							start++;
-						}
-						keymatrix[i][j]=start;
-						start++;
-					}
-					else
-					{
-						start++;
-						j--;
-					}
-				}
-				else
-				{
-					keymatrix[i][j]=uniquestr.charAt(a);
-					a++;
-				}
+				keymatrix[i][j]=uniquestr.charAt(a);
+				a++;
 			}
 		}
 		return keymatrix;
