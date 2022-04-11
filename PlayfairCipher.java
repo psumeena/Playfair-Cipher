@@ -7,7 +7,7 @@ public class PlayfairCipher {
 		String plain=sc.next();
 		System.out.println("Enter the key: ");
 		String key=sc.next();
-        System.out.println("\nEncryption using playfair:\n");
+                System.out.println("\nEncryption using playfair:\n");
 		String pairplain=pair(plain);
 		char[][] keymatrix=formKeyMatrix(key);
 		System.out.println("Filler letter: X\n");
