@@ -36,11 +36,11 @@ public class PlayfairCipher {
 		char filler='X';
 		for(int i=0;i<plain.length();i+=2)
 		{
-			if(plain.charAt(i)!=plain.charAt(i+1))
+			if(plain.charAt(i)!=plain.charAt(i+1)) //if the letters to be paired are not same->pair them
 			{
 				pair+=plain.charAt(i)+""+plain.charAt(i+1);
 			}
-			else
+			else //if the letters to be paired are same->pair the first letter with filler
 			{
 				pair+=plain.charAt(i)+""+filler;
 				i-=1;
@@ -51,18 +51,19 @@ public class PlayfairCipher {
 	
 	public static char[][] formKeyMatrix(String key)
 	{
-		key=key.replaceAll("J","I");
+		key=key.replaceAll("J","I"); //replace all J's with I's in key
 		char[][] keymatrix=new char[5][5];
 		int a=0;
+		int Jascii=74;
 		Set<Character> unique= new LinkedHashSet<Character>();
 		String uniquestr="";
 		for(int p=0;p<key.length();p++)
 		{
-			unique.add(key.charAt(p));
+			unique.add(key.charAt(p)); //resultant set will contain only unique characters in the key
 		}
 		for(char i=65;i<91;i++)
 		{
-			if(i!=74)
+			if(i!=Jascii) //The key matrix will not contain J (as I and J are considered as a single letter(I))
 			unique.add(i);
 		}
 		Iterator<Character> iter=unique.iterator();
@@ -94,7 +95,7 @@ public class PlayfairCipher {
 			{
 				for(int j=0;j<5;j++)
 				{
-					if(pair.charAt(ind)==key[i][j])
+					if(pair.charAt(ind)==key[i][j]) 
 					{
 						frow=i;
 						fcol=j;
@@ -113,7 +114,7 @@ public class PlayfairCipher {
 					break;
 			}
 
-			if(frow==srow)
+			if(frow==srow) //case I - both the letters are in the same row
 			{
 				if(fcol+1<5)
 				{
@@ -132,7 +133,7 @@ public class PlayfairCipher {
 					cipherorplain+=key[frow][0];
 				}
 			}
-			else if(fcol==scol)
+			else if(fcol==scol) //case II - both the letters are in the same column
 			{
 				if(frow+1<5)
 				{
@@ -151,7 +152,7 @@ public class PlayfairCipher {
 					cipherorplain+=key[0][fcol];
 				}
 			}
-			else
+			else // Case III - both the letters are neither in the same row nor in the same column
 			{
 				cipherorplain+=key[frow][scol];
 				cipherorplain+=key[srow][fcol];
